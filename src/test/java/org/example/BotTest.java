@@ -56,7 +56,7 @@ public class BotTest {
         try {
             verify(bot).execute(argumentCaptor.capture());
         } catch (TelegramApiException e) {
-
+            System.out.println("Error: " + e.getMessage());
         }
 
         // Получение захваченного сообщения
