@@ -50,7 +50,7 @@ public class HandlerMessage {
 
 
             switch (sign) {
-                case '/': result=(a/b);
+                case  '/': result=(a/b);
                 default: return null;
                 }
 
