@@ -39,7 +39,7 @@ public class HandlerMessage {
 //математическое выражение(выделение из строки на число, знак, число)
     private static String isMathRequest(String request) {
         int result = 0;
-        if (request.toLowerCase().startsWith("math:20%100")){
+        if (request.toLowerCase().startsWith("math:200%10")){
 
            int indexStart =  request.indexOf(":") + 1;
            String str  = request.substring(indexStart);
@@ -49,7 +49,7 @@ public class HandlerMessage {
             char sign = str.charAt(split[0].length());
 
             switch (sign) {
-                case  '/': result=(a/b);
+                case  '/' : result=a%b;
                 default: return null;
                 }
 
