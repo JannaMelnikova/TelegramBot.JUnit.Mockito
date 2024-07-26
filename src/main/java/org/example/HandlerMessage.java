@@ -36,7 +36,7 @@ public class HandlerMessage {
             default:return "нет пункта меню";
         }
     }
-
+//математическое выражение(выделение из строки на число, знак, число)
     private static String isMathRequest(String request) {
         int result = 0;
         if (request.toLowerCase().startsWith("math:20%100")){
@@ -51,7 +51,6 @@ public class HandlerMessage {
 
             switch (sign) {
                 case '/': result=(a/b);
-                case '-': result=(a-b);
                 default: return null;
                 }
 
