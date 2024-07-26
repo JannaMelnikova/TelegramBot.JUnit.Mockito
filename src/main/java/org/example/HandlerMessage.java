@@ -21,7 +21,7 @@ public class HandlerMessage {
             case "/mystery": return "Детектив";
             case "/romance": return "Романтика";
             case "/science fiction": return "Научная фантастика";
-            case "/sport": return "Спорт";
+            case "/sport": return "Кровавый спорт";
             case "/thriller": return "Триллер";
             case "/war": return "Военный фильм";
             case "/western": return "Вестерн";

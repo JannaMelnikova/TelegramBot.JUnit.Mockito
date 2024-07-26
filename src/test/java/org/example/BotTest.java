@@ -5,12 +5,16 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockitoAnnotations;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.stream.Stream;
 
 public class BotTest {
 
@@ -26,8 +30,9 @@ public class BotTest {
         bot.setHandlerMessage(handlerMessage); // Устанавливаем зависимость
     }
 
-    @Test
-    void testOnUpdateReceived()  {
+    @ParameterizedTest
+    @MethodSource("commandProvider")
+     void testOnUpdateReceived(TestData testData)  {
         // Создание моков для Update и Message
         Update update = mock(Update.class);
         Message message = mock(Message.class);
@@ -37,8 +42,9 @@ public class BotTest {
         when(update.getMessage()).thenReturn(message);
         when(message.hasText()).thenReturn(true);
         when(message.getChatId()).thenReturn(12345L);
-        when(message.getText()).thenReturn("/start");
-        when(handlerMessage.getAnswer("/start")).thenReturn("Боевик");
+        when(message.getText()).thenReturn(testData.command);
+        when(handlerMessage.getAnswer(testData.command)).thenReturn(testData.response);
+
 
         // Вызов тестируемого метода
         bot.onUpdateReceived(update);
@@ -58,6 +64,15 @@ public class BotTest {
 
         // Проверка значений захваченного сообщения
         assertEquals("12345", capturedMessage.getChatId());
-        assertEquals("Боевик", capturedMessage.getText());
+        //assertEquals("Этот бот поможет вам с выбором фильма", capturedMessage.getText());
+        assertEquals(testData.response, capturedMessage.getText());
+    }
+
+    static Stream<TestData> commandProvider() {
+        return Stream.of(
+                new TestData("/start","Этот бот поможет вам с выбором фильма"),
+                new TestData("/sport", "Кровавый спорт")
+                );
+
     }
 }
