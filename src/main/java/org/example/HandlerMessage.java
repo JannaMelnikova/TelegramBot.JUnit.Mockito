@@ -1,7 +1,15 @@
 package org.example;
 
 public class HandlerMessage {
+
+
+
     public String getAnswer(String request) {
+
+        String result = isMathRequest(request);
+        if (result != null) return result;
+
+
         switch (request) {
             case "/start": return "Этот бот поможет вам с выбором фильма ";
             case "/action": return "Боевик";
@@ -27,5 +35,27 @@ public class HandlerMessage {
             case "/western": return "Вестерн";
             default:return "нет пункта меню";
         }
+    }
+
+    private static String isMathRequest(String request) {
+        int result = 0;
+        if (request.toLowerCase().startsWith("math:20%100")){
+
+           int indexStart =  request.indexOf(":") + 1;
+           String str  = request.substring(indexStart);
+            String[] split = str.split("[^a-zA-Zа-яА-Я0-9]",2);
+            int a = Integer.parseInt(split[0]);
+            int b = Integer.parseInt(split[1]);
+            char sign = str.charAt(split[0].length());
+
+
+            switch (sign) {
+                case '/': result=(a/b);
+                case '-': result=(a-b);
+                default: return null;
+                }
+
+            }
+       return String.valueOf(result);
     }
 }
