@@ -48,7 +48,6 @@ public class HandlerMessage {
             int b = Integer.parseInt(split[1]);
             char sign = str.charAt(split[0].length());
 
-
             switch (sign) {
                 case  '/': result=(a/b);
                 default: return null;
