@@ -2,8 +2,6 @@ package org.example;
 
 public class HandlerMessage {
 
-
-
     public String getAnswer(String request) {
 
         String result = isMathRequest(request);
@@ -56,4 +54,5 @@ public class HandlerMessage {
             }
        return String.valueOf(result);
     }
+    System.out.println("Hello world");
 }
