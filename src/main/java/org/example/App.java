@@ -18,7 +18,6 @@ public class App {
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
-
+        System.out.println("Hello world");
     }
-
 }

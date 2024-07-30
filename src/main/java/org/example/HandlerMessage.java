@@ -54,5 +54,5 @@ public class HandlerMessage {
             }
        return String.valueOf(result);
     }
-    System.out.println("Hello world");
+
 }
