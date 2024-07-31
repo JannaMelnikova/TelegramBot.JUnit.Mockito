@@ -7,7 +7,6 @@ public class HandlerMessage {
         String result = isMathRequest(request);
         if (result != null) return result;
 
-
         switch (request) {
             case "/start": return "Этот бот поможет вам с выбором фильма ";
             case "/action": return "Боевик";
@@ -31,13 +30,14 @@ public class HandlerMessage {
             case "/thriller": return "Триллер";
             case "/war": return "Военный фильм";
             case "/western": return "Вестерн";
-            default:return "нет пункта меню";
+            default:return result; //"нет пункта меню";
         }
     }
 //математическое выражение(выделение из строки на число, знак, число)
     private static String isMathRequest(String request) {
+
         int result = 0;
-        if (request.toLowerCase().startsWith("math:200%10")){
+        if (request.toLowerCase().startsWith("math:")){
 
            int indexStart =  request.indexOf(":") + 1;
            String str  = request.substring(indexStart);
@@ -48,6 +48,13 @@ public class HandlerMessage {
 
             switch (sign) {
                 case  '/' : result=a%b;
+                break;
+                case '+' : result=a+b;
+                break;
+                case '-' : result=a-b;
+                break;
+                case '*' : result=a*b;
+                break;
                 default: return null;
                 }
 

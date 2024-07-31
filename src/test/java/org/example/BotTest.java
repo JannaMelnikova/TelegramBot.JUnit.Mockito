@@ -3,6 +3,7 @@ package org.example;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,58 +22,86 @@ public class BotTest {
     private Bot bot;
     private HandlerMessage handlerMessage;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        bot = spy(new Bot("7446389542:AAE1Ryzi9BXDjX0XgbWm9t3CMYDpx40NQqA")); // Используем реальный объект Bot и шпион для него
-        when(bot.getBotUsername()).thenReturn("cinema_java_bot");
-        handlerMessage = mock(HandlerMessage.class);
-        bot.setHandlerMessage(handlerMessage); // Устанавливаем зависимость
+    /*  @BeforeEach
+      void setUp() {
+        /*MockitoAnnotations.openMocks(this);
+          bot = spy(new Bot("7446389542:AAE1Ryzi9BXDjX0XgbWm9t3CMYDpx40NQqA")); // Используем реальный объект Bot и шпион для него
+          when(bot.getBotUsername()).thenReturn("cinema_java_bot");
+          handlerMessage = mock(HandlerMessage.class);
+          bot.setHandlerMessage(handlerMessage); // Устанавливаем зависимость
+      }
+
+      @ParameterizedTest
+      @MethodSource("commandProvider")
+       void testOnUpdateReceived(TestData testData)  {
+          // Создание моков для Update и Message
+          Update update = mock(Update.class);
+          Message message = mock(Message.class);
+
+          // Настройка поведения моков
+          when(update.hasMessage()).thenReturn(true);
+          when(update.getMessage()).thenReturn(message);
+          when(message.hasText()).thenReturn(true);
+          when(message.getChatId()).thenReturn(12345L);
+          when(message.getText()).thenReturn(testData.command);
+          when(handlerMessage.getAnswer(testData.command)).thenReturn(testData.response);
+
+
+          // Вызов тестируемого метода
+          bot.onUpdateReceived(update);
+
+          // Создание аргумента для захвата отправленного сообщения
+          ArgumentCaptor<SendMessage> argumentCaptor = ArgumentCaptor.forClass(SendMessage.class);
+
+          // Проверка, что execute был вызван и захват сообщения
+          try {
+              verify(bot).execute(argumentCaptor.capture());
+          } catch (TelegramApiException e) {
+              System.out.println("Error: " + e.getMessage());
+          }
+
+          // Получение захваченного сообщения
+          SendMessage capturedMessage = argumentCaptor.getValue();
+
+          // Проверка значений захваченного сообщения
+          assertEquals("12345", capturedMessage.getChatId());
+          //assertEquals("Этот бот поможет вам с выбором фильма", capturedMessage.getText());
+          assertEquals(testData.response, capturedMessage.getText());
+      }
+
+      static Stream<TestData> commandProvider() {
+          return Stream.of(
+                  new TestData("/start","Этот бот поможет вам с выбором фильма"),
+                  new TestData("/sport", "Кровавый спорт")
+                  );
+
+      }
+
+           */
+    @Test
+    public void testDelenie() {
+        HandlerMessage handler = new HandlerMessage();
+        String response = handler.getAnswer("math:10%3");
+        assertEquals("1", response);
+
+    }
+    @Test
+    public  void testUmnozh() {
+        HandlerMessage handler = new HandlerMessage();
+        String response = handler.getAnswer("math:10*3");
+        assertEquals("30", response);
+    }
+    @Test
+    public void testVichit() {
+        HandlerMessage handler = new HandlerMessage();
+        String response = handler.getAnswer("math:10-3");
+        assertEquals("7", response);
+    }
+    @Test
+    public void testSlozh() {
+        HandlerMessage handler = new HandlerMessage();
+        String response = handler.getAnswer("math:10+7");
+        assertEquals("17", response);
     }
 
-    @ParameterizedTest
-    @MethodSource("commandProvider")
-     void testOnUpdateReceived(TestData testData)  {
-        // Создание моков для Update и Message
-        Update update = mock(Update.class);
-        Message message = mock(Message.class);
-
-        // Настройка поведения моков
-        when(update.hasMessage()).thenReturn(true);
-        when(update.getMessage()).thenReturn(message);
-        when(message.hasText()).thenReturn(true);
-        when(message.getChatId()).thenReturn(12345L);
-        when(message.getText()).thenReturn(testData.command);
-        when(handlerMessage.getAnswer(testData.command)).thenReturn(testData.response);
-
-
-        // Вызов тестируемого метода
-        bot.onUpdateReceived(update);
-
-        // Создание аргумента для захвата отправленного сообщения
-        ArgumentCaptor<SendMessage> argumentCaptor = ArgumentCaptor.forClass(SendMessage.class);
-
-        // Проверка, что execute был вызван и захват сообщения
-        try {
-            verify(bot).execute(argumentCaptor.capture());
-        } catch (TelegramApiException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        // Получение захваченного сообщения
-        SendMessage capturedMessage = argumentCaptor.getValue();
-
-        // Проверка значений захваченного сообщения
-        assertEquals("12345", capturedMessage.getChatId());
-        //assertEquals("Этот бот поможет вам с выбором фильма", capturedMessage.getText());
-        assertEquals(testData.response, capturedMessage.getText());
-    }
-
-    static Stream<TestData> commandProvider() {
-        return Stream.of(
-                new TestData("/start","Этот бот поможет вам с выбором фильма"),
-                new TestData("/sport", "Кровавый спорт")
-                );
-
-    }
 }
