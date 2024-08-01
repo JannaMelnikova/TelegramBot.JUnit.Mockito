@@ -21,10 +21,10 @@ public class BotTest {
 
     private Bot bot;
     private HandlerMessage handlerMessage;
-
-    /*  @BeforeEach
+/*
+     @BeforeEach
       void setUp() {
-        /*MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this);
           bot = spy(new Bot("7446389542:AAE1Ryzi9BXDjX0XgbWm9t3CMYDpx40NQqA")); // Используем реальный объект Bot и шпион для него
           when(bot.getBotUsername()).thenReturn("cinema_java_bot");
           handlerMessage = mock(HandlerMessage.class);
@@ -76,13 +76,13 @@ public class BotTest {
                   );
 
       }
+*/
 
-           */
     @Test
     public void testDelenie() {
         HandlerMessage handler = new HandlerMessage();
-        String response = handler.getAnswer("math:10%3");
-        assertEquals("1", response);
+        String response = handler.getAnswer("math:9/3");
+        assertEquals("3", response);
 
     }
     @Test

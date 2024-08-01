@@ -47,7 +47,7 @@ public class HandlerMessage {
             char sign = str.charAt(split[0].length());
 
             switch (sign) {
-                case  '/' : result=a%b;
+                case  '/' : result=a/b;
                 break;
                 case '+' : result=a+b;
                 break;
